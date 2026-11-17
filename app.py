@@ -26,15 +26,17 @@ headers_datalab = {
 # ----------------------------------------------------
 def get_blog_doc_count(keyword):
     """검색 API를 통해 해당 키워드의 누적 블로그 문서 수를 가져옵니다."""
-    url = f"https://naveropenapi.apigw.ntruss.com/search-blog/v1/search?query={keyword}&display=1"
+    url = f"https://naverapihub.apigw.ntruss.com/search/v1/blog?query={keyword}&display=1"
     response = requests.get(url, headers=headers_cloud)
     if response.status_code == 200:
         return response.json().get('total', 0)
+    else:
+        st.error(f"블로그 검색 API 에러: {response.status_code}")
     return 0
 
 def get_search_trend(keyword, start_date, end_date, device="mo"):
     """데이터랩 API를 통해 4050 타겟의 핵심인 모바일 검색 트렌드 지수를 가져옵니다."""
-    url = "https://naveropenapi.apigw.ntruss.com/datalab/v1/search"
+    url = "https://naverapihub.apigw.ntruss.com/datalab/v1/search"
     body = {
         "startDate": start_date,
         "endDate": end_date,
@@ -53,8 +55,10 @@ def get_search_trend(keyword, start_date, end_date, device="mo"):
             return trend_score, results
         except IndexError:
             return 0, []
+    else:
+        st.error(f"데이터랩 API 에러: {response.status_code}")
     return 0, []
-
+    
 # ----------------------------------------------------
 # 3. 스트림릿 UI 구성
 # ----------------------------------------------------
