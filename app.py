@@ -36,14 +36,14 @@ def get_blog_doc_count(keyword):
 
 def get_search_trend(keyword, start_date, end_date, device="mo"):
     """데이터랩 API를 통해 4050 타겟의 핵심인 모바일 검색 트렌드 지수를 가져옵니다."""
-    url = "https://naverapihub.apigw.ntruss.com/datalab/v1/search"
+    url = "https://naverapihub.apigw.ntruss.com/search-trend/v1/search"
     body = {
         "startDate": start_date,
         "endDate": end_date,
         "timeUnit": "date",
         "keywordGroups": [{"groupName": keyword, "keywords": [keyword]}],
         "device": device,
-        "ages": ["4", "5", "6"] # 40대, 50대, 60대 이상 타겟팅
+        "ages": ["7", "8", "9", "10", "11"] # 40대~60대 이상 정확히 타겟팅
     }
     response = requests.post(url, headers=headers_datalab, data=json.dumps(body))
     if response.status_code == 200:
@@ -56,7 +56,7 @@ def get_search_trend(keyword, start_date, end_date, device="mo"):
         except IndexError:
             return 0, []
     else:
-        st.error(f"데이터랩 API 에러: {response.status_code}")
+        st.error(f"데이터랩 API 에러 ({keyword}): {response.status_code}")
     return 0, []
     
 # ----------------------------------------------------
