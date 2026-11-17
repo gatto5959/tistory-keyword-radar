@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 # ----------------------------------------------------
 # 1. API 키 설정 (네이버 클라우드 플랫폼 인증 정보)
 # ----------------------------------------------------
-CLIENT_ID = st.secrets["kau026dh56"]
-CLIENT_SECRET = st.secrets["lbrX4TFkN2q05fTWgF4gSc6W3KkLdGa1iGwqJ7lH"]
+CLIENT_ID = st.secrets["CLIENT_ID"]
+CLIENT_SECRET = st.secrets["CLIENT_SECRET"]
 
 # API HUB 전용 헤더
 headers_cloud = {
